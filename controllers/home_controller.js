@@ -1,3 +1,4 @@
 module.exports.home = function (req, res) {
-   res.send("<h1>The BaatCheet is up and running!!!!!!!!!!!!</h1>");
+   return res.render("home", { title: "Home" });
+   // res.send("<h1>The BaatCheet is up and running!!!!!!!!!!!!</h1>");
 };
