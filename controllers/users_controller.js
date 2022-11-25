@@ -29,11 +29,15 @@ module.exports.create = function (req, res) {
    }
    UserDb.findOne({ email: req.body.email }, (error, user) => {
       if (error) {
-         console.log("Unable to connect to UserDb");
+         console.log("Error in finding user in sign-up");
       }
       if (!user) {
-         UserDb.create(req.body);
-         res.redirect("/users/sign-in");
+         UserDb.create(req.body, (err, user) => {
+            if (err) {
+               console.log("Error in creating user in sign-up");
+            }
+            res.redirect("/users/sign-in");
+         });
       } else {
          res.redirect("back");
       }
