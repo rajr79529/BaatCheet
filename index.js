@@ -1,9 +1,14 @@
 const express = require("express");
 const path = require("path");
 const ejsLayout = require("express-ejs-layouts");
-const port = 8000;
+const database = require("./configs/mongoose");
+const cookieParser = require("cookie-parser");
 
+const port = 8000;
 const app = express();
+
+app.use(cookieParser());
+app.use(express.urlencoded());
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname + "/views"));
