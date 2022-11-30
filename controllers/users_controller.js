@@ -36,15 +36,25 @@ module.exports.create = function (req, res) {
             if (err) {
                console.log("Error in creating user in sign-up");
             }
-            res.redirect("/users/sign-in");
+            return res.redirect("/users/sign-in");
          });
       } else {
-         res.redirect("back");
+         return res.redirect("back");
       }
    });
 };
 
 // create session for user
 module.exports.createSession = function (req, res) {
-   //TODO
+   return res.redirect("/users/profile");
+};
+
+module.exports.destroySession = function (req, res) {
+   // req is provided logout function by passport
+   req.logout(function (err) {
+      if (err) {
+         return console.log(error);
+      }
+      res.redirect("/");
+   });
 };
