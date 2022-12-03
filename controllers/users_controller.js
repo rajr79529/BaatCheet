@@ -6,11 +6,6 @@ module.exports.profile = function (req, res) {
    //    res.send("<h1>Users Profile</h1>");
 };
 
-// render posts page
-module.exports.posts = function (req, res) {
-   res.send("<h1>THis is Posts section</h1>");
-};
-
 // render sign-in page
 module.exports.signIn = function (req, res) {
    return res.render("user_sign_in", { title: "sign_in" });

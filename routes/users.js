@@ -8,7 +8,6 @@ router.get(
    passport.checkAuthentication,
    usersController.profile
 );
-router.get("/posts", usersController.posts);
 router.get(
    // instead of creating a middleware,direct call req.isAuthenticated()
    "/sign-in",
