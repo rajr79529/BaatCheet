@@ -1,0 +1,7 @@
+#main_content {
+   display: flex;
+   justify-content: center;
+}
+#main_content Section {
+   margin: 5px;
+}

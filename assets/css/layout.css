@@ -4,4 +4,8 @@ body {
   background-color: beige;
 }
 
+li {
+  list-style: none;
+}
+
 /*# sourceMappingURL=layout.css.map */

@@ -1,15 +1,27 @@
+<link rel="stylesheet" href="/css/home.css" />
 <h1>BaatCheet <%= title%></h1>
 
-<section>
-   <h1>Add Post</h1>
-   <form action="/posts/create" method="post">
-      <textarea
-         name="feed_post"
-         id="feed_post"
-         cols="30"
-         rows="10"
-      ></textarea
-      ><br />
-      <input type="submit" value="Add" />
-   </form>
-</section>
+<div id="main_content">
+   <section>
+      <h1>Add Post</h1>
+      <form action="/posts/create" method="post">
+         <textarea
+            name="feed_post"
+            id="feed_post"
+            cols="30"
+            rows="10"
+         ></textarea
+         ><br />
+         <input type="submit" value="Add" />
+      </form>
+   </section>
+   <section id="display_posts">
+      <%for(let post of posts){%>
+      <ul>
+         <li><%=post.content%></li>
+         <li><%=post.user.name%></li>
+         <li><%=post.createdAt%></li>
+      </ul>
+      <%}%>
+   </section>
+</div>
