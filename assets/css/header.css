@@ -1,0 +1,25 @@
+header {
+  background-color: navy;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0rem 1rem;
+  height: min-content;
+}
+header a {
+  color: white;
+  text-decoration: none;
+}
+header ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+header ul li {
+  color: white;
+  margin-left: 1rem;
+  font-size: larger;
+}
+
+/*# sourceMappingURL=header.css.map */

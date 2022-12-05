@@ -1,0 +1,24 @@
+header {
+   background-color: navy;
+   color: white;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 0rem 1rem;
+   height: min-content;
+   a {
+      color: white;
+      text-decoration: none;
+   }
+   ul {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      li {
+         color: white;
+         margin-left: 1rem;
+         font-size: larger;
+      }
+   }
+}
