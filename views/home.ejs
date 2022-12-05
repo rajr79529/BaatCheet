@@ -25,7 +25,7 @@
          <li><%=post.createdAt%></li>
          <%if(locals.user){%>
          <div class="comments_container">
-            <form action="comment/create" method="post">
+            <form action="comments/create" method="post">
                <input
                   type="text"
                   name="content"
