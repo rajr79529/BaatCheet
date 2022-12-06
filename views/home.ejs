@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/css/home.css" />
-<h1>BaatCheet <%= title%></h1>
+<h1><%= title%> Page</h1>
 
 <div id="main_content">
    <%if(locals.user){%>
@@ -11,6 +11,7 @@
             id="feed_post"
             cols="30"
             rows="10"
+            required
          ></textarea
          ><br />
          <input type="submit" value="Add" />
@@ -30,6 +31,7 @@
                   type="text"
                   name="content"
                   placeholder="Type a comment... "
+                  required
                />
                <input type="hidden" name="post" value="<%=post._id%>" />
                <input type="submit" value="comment" />
@@ -37,7 +39,15 @@
          </div>
          <%}%>
       </ul>
-
+      <div class="comments_container">
+         <ul id="<%= post._id%>">
+            <%for(let comment of post.comments){%>
+            <li><%=comment.content%></li>
+            <li><small><%=comment.user.name%></small></li>
+            <%}%>
+         </ul>
+      </div>
+      <hr />
       <%}%>
    </section>
 </div>

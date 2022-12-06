@@ -1,6 +1,6 @@
 #main_content {
    display: flex;
-   justify-content: center;
+   justify-content: space-evenly;
 }
 #main_content Section {
    margin: 5px;
