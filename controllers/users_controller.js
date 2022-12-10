@@ -29,16 +29,22 @@ module.exports.create = function (req, res) {
    }
    User.findOne({ email: req.body.email }, (error, user) => {
       if (error) {
-         console.log("Error in finding user in sign-up");
+         req.flash("error", error);
+         return res.redirect("back");
       }
       if (!user) {
          User.create(req.body, (err, user) => {
             if (err) {
-               console.log("Error in creating user in sign-up");
+               req.flash("error", err);
             }
+            req.flash("success", "Account created successfully!");
             return res.redirect("/users/sign-in");
          });
       } else {
+         req.flash(
+            "error",
+            "An account is already created with this email."
+         );
          return res.redirect("back");
       }
    });
@@ -47,6 +53,7 @@ module.exports.create = function (req, res) {
 module.exports.update = function (req, res) {
    if (req.params.user_id == req.user.id) {
       User.findByIdAndUpdate(req.params.user_id, req.body, (err, user) => {
+         req.flash("success", "Details updated successfully!");
          return res.redirect("/");
       });
    } else {
@@ -56,6 +63,7 @@ module.exports.update = function (req, res) {
 
 // create session(Sign in) for user
 module.exports.createSession = function (req, res) {
+   req.flash("success", "Logged in successfully!");
    return res.redirect("/");
 };
 
@@ -65,6 +73,7 @@ module.exports.destroySession = function (req, res) {
       if (err) {
          return console.log(error);
       }
+      req.flash("success", "Logged out successfully!");
       res.redirect("/");
    });
 };

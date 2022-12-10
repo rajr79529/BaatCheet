@@ -9,6 +9,8 @@ const passportLocal = require("./configs/passport-local-strategy");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 // const sassMiddleware = require("node-sass-middleware");
+const flash = require("connect-flash");
+const customMware = require("./configs/middleware");
 
 const port = 8000;
 const app = express();
@@ -43,6 +45,8 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
+app.use(customMware.setFlash);
 //this will set the user locally each time req comes
 app.use(passport.setAuthenticatedUser);
 

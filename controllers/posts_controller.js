@@ -9,9 +9,10 @@ module.exports.create = (req, res) => {
       },
       (error, post) => {
          if (error) {
-            console.log("Error in creating Post");
-            return;
+            req.flash("error", error);
+            return res.redirect("back");
          }
+         req.flash("success", "post created successfully!");
          res.redirect("back");
       }
    );
@@ -24,9 +25,11 @@ module.exports.destroy = (req, res) => {
       if (post.user == req.user.id) {
          post.remove();
          Comment.deleteMany({ post: req.params.id }, (err) => {
+            req.flash("success", "post deleted successfully!");
             return res.redirect("back");
          });
       } else {
+         req.flash("error", "You can not delete this post!");
          return res.redirect("back");
       }
    });
