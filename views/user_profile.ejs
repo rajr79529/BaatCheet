@@ -1,5 +1,29 @@
 <link rel="stylesheet" href="/css/user_profile.css" />
 <h1>BaatCheet Profile</h1>
 
-<p><%= user.name%></p>
-<p><%= user.email%></p>
+<%if(user.id == selected_user.id){%>
+<form action="/users/update/<%= selected_user.id %> " method="post">
+   <label for="name">Your Name</label>
+   <input
+      type="text"
+      name="name"
+      value="<%= selected_user.name %> "
+      required
+   />
+   <br />
+   <br />
+   <label for="email">Your Email</label>
+   <input
+      type="email"
+      name="email"
+      value="<%= selected_user.email %> "
+      required
+   />
+   <br />
+   <br />
+   <input type="submit" value="Save" />
+</form>
+<%}else{%>
+<p><%= selected_user.name%></p>
+<p><%= selected_user.email%></p>
+<%}%>

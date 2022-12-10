@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="/css/home.css" />
-<h1><%= title%> Page</h1>
 
 <div id="main_content">
    <%if(locals.user){%>
@@ -19,35 +18,20 @@
    </section>
    <%}%>
    <section id="display_posts">
-      <%for(let post of posts){%>
+      <!-- we can not use let in for-of loop here as it will restrict the scope of post to this file only -->
+      <%for(post of posts){%> <%- include('_post')%> <%}%>
+   </section>
+   <section id="users_list">
+      <h1>Friends</h1>
+      <hr />
       <ul>
-         <li><%=post.content%></li>
-         <li><%=post.user.name%></li>
-         <li><%=post.createdAt%></li>
-         <%if(locals.user){%>
-         <div class="comments_container">
-            <form action="comments/create" method="post">
-               <input
-                  type="text"
-                  name="content"
-                  placeholder="Type a comment... "
-                  required
-               />
-               <input type="hidden" name="post" value="<%=post._id%>" />
-               <input type="submit" value="comment" />
-            </form>
-         </div>
+         <%for(user of all_users){%>
+         <a href="users/profile/<%=user.id%>">
+            <li><%=user.name%></li>
+            <li><%=user.email%></li>
+            <hr />
+         </a>
          <%}%>
       </ul>
-      <div class="comments_container">
-         <ul id="<%= post._id%>">
-            <%for(let comment of post.comments){%>
-            <li><%=comment.content%></li>
-            <li><small><%=comment.user.name%></small></li>
-            <%}%>
-         </ul>
-      </div>
-      <hr />
-      <%}%>
    </section>
 </div>

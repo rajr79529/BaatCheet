@@ -5,3 +5,8 @@
 #main_content Section {
    margin: 5px;
 }
+#users_list {
+   border-left: 1px solid lightgray;
+   height: 100%;
+   padding: 10px;
+}

@@ -4,7 +4,7 @@ const usersController = require("../controllers/users_controller");
 const passport = require("passport");
 
 router.get(
-   "/profile",
+   "/profile/:user_id",
    passport.checkAuthentication,
    usersController.profile
 );
@@ -32,5 +32,11 @@ router.post(
 );
 
 router.get("/sign-out", usersController.destroySession);
+
+router.post(
+   "/update/:user_id",
+   passport.checkAuthentication,
+   usersController.update
+);
 
 module.exports = router;
