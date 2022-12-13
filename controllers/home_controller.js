@@ -5,6 +5,7 @@ module.exports.home = async function (req, res) {
    //populate will replace the objectId with the whole user object.
    try {
       const posts = await Post.find()
+         .sort("-createdAt")
          .populate("user")
          .populate({
             path: "comments",

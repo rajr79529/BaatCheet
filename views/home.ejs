@@ -4,7 +4,7 @@
    <%if(locals.user){%>
    <section>
       <h1>Add Post</h1>
-      <form action="/posts/create" method="post">
+      <form action="/posts/create" method="post" id="create_post_form">
          <textarea
             name="feed_post"
             id="feed_post"
@@ -35,3 +35,4 @@
       </ul>
    </section>
 </div>
+<script src="/js/home_posts.js"></script>

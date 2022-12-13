@@ -12,6 +12,12 @@ module.exports.create = (req, res) => {
             req.flash("error", error);
             return res.redirect("back");
          }
+         if (req.xhr) {
+            return res.status(200).json({
+               post,
+               message: "Post is Created",
+            });
+         }
          req.flash("success", "post created successfully!");
          res.redirect("back");
       }
