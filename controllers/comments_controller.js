@@ -10,10 +10,18 @@ module.exports.create = async function (req, res) {
             user: req.user._id,
             post: req.body.post,
          });
-         //putting comment ref to post's comments
-         post.comments.push(comment);
+         //putting comment ref to start of post's comments
+         post.comments.unshift(comment);
          //telling server to save
          post.save();
+         
+         //for AJAX request
+         if (req.xhr) {
+            return res.status(200).json({
+               comment,
+               message: "comment created",
+            });
+         }
          req.flash("success", "Comment added successfully!");
          res.redirect("back");
       }
@@ -32,6 +40,12 @@ module.exports.destroy = async (req, res) => {
          await Post.findByIdAndUpdate(postId, {
             $pull: { comments: req.params.id },
          });
+         if (req.xhr) {
+            return res.status(200).json({
+               commentId: comment._id,
+               message: "Comment Deleted",
+            });
+         }
          req.flash("success", "Comment deleted successfully!");
          return res.redirect("back");
       } else {

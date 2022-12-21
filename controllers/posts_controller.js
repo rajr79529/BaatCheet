@@ -31,6 +31,12 @@ module.exports.destroy = (req, res) => {
       if (post.user == req.user.id) {
          post.remove();
          Comment.deleteMany({ post: req.params.id }, (err) => {
+            if (req.xhr) {
+               return res.status(200).json({
+                  postId: post.id,
+                  message: "Successfully Deleted",
+               });
+            }
             req.flash("success", "post deleted successfully!");
             return res.redirect("back");
          });

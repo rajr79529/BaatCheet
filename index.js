@@ -57,7 +57,8 @@ app.set("layout extractScripts", true);
 app.set("layout extractStyles", true);
 
 app.use("/", require("./routes"));
-
+//this is connecting uploads to browser
+app.use("/uploads", express.static(__dirname + "/uploads"));
 app.listen(port, function (err) {
    if (err) {
       console.log(`Error in starting the server : ${err}`);

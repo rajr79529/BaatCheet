@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const fs = require("fs");
+const path = require("path");
 
 // render profile page
 module.exports.profile = function (req, res) {
@@ -50,12 +52,38 @@ module.exports.create = function (req, res) {
    });
 };
 
-module.exports.update = function (req, res) {
+module.exports.update = async function (req, res) {
+   // if (req.params.user_id == req.user.id) {
+   //    User.findByIdAndUpdate(req.params.user_id, req.body, (err, user) => {
+   //       req.flash("success", "Details updated successfully!");
+   //       return res.redirect("/");
+   //    });
+   // } else {
+   //    return res.status(401).send("Unauthorized");
+   // }
    if (req.params.user_id == req.user.id) {
-      User.findByIdAndUpdate(req.params.user_id, req.body, (err, user) => {
-         req.flash("success", "Details updated successfully!");
-         return res.redirect("/");
-      });
+      try {
+         let user = await User.findById(req.params.user_id);
+         User.uploadedAvatar(req, res, function (err) {
+            if (err) {
+               console.log("*****Multer Error", err);
+            }
+            user.name = req.body.name;
+            user.email = req.body.email;
+            if (req.file) {
+               const imagePath = path.join(__dirname, "..", user.avatar);
+               if (user.avatar && fs.existsSync(imagePath)) {
+                  fs.unlinkSync(imagePath);
+               }
+               //this is saving the avatar path in the avatar field of the user-schema
+               user.avatar = User.avatarPath + "/" + req.file.filename;
+            }
+            user.save();
+            return res.redirect("back");
+         });
+      } catch (error) {
+         console.log("Error", err);
+      }
    } else {
       return res.status(401).send("Unauthorized");
    }
