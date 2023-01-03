@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 //setting up authentication using passport and express-session
 const passport = require("passport");
 const passportLocal = require("./configs/passport-local-strategy");
+const passportJwt = require("./configs/passport-jwt-strategy");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 // const sassMiddleware = require("node-sass-middleware");
@@ -16,7 +17,7 @@ const port = 8000;
 const app = express();
 
 app.use(cookieParser());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname + "/views"));
