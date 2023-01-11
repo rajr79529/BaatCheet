@@ -71,6 +71,18 @@ for (const button of crossButtons) {
    button.addEventListener("click", deletePost);
 }
 
+const getCommentForDom = (comment) => {
+   return `
+      <li>
+     ${comment.content}
+      <large>
+         <a href="/comments/destroy/${comment.id}">X</a>
+      </large>
+      </li>
+      <li><small>${comment.user.name}</small></li>
+   `;
+};
+
 // start comment creation using AJAX
 const createComment = (submitEvent) => {
    submitEvent.preventDefault();
@@ -89,19 +101,6 @@ const createComment = (submitEvent) => {
          console.log(`Error ${error}`);
       },
    });
-};
-
-const getCommentForDom = (comment) => {
-   console.log("In getCommentForDom function", comment);
-   return `
-      <li>
-     ${comment.content}
-      <large>
-         <a href="/comments/destroy/${comment.id}">X</a>
-      </large>
-      </li>
-      <li><small>${comment.user.name}</small></li>
-   `;
 };
 
 $("#comments_form").submit(createComment);

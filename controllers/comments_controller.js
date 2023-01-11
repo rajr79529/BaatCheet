@@ -1,11 +1,12 @@
 const Post = require("../models/post");
 const Comment = require("../models/comment");
+const commentMailer = require("../mailers/commentMailer");
 
 module.exports.create = async function (req, res) {
    try {
       const post = await Post.findById(req.body.post);
       if (post) {
-         const comment = await Comment.create({
+         let comment = await Comment.create({
             content: req.body.content,
             user: req.user._id,
             post: req.body.post,
@@ -14,11 +15,15 @@ module.exports.create = async function (req, res) {
          post.comments.unshift(comment);
          //telling server to save
          post.save();
-         
+
+         // this is for sending mail to commenter
+         comment = await comment.populate("user", "name email");
+         commentMailer.newComment(comment);
+
          //for AJAX request
          if (req.xhr) {
             return res.status(200).json({
-               comment,
+               comment: comment,
                message: "comment created",
             });
          }
